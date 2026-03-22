@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn Italian with Morgan — Native Italian Teacher Online</title>
+  <meta name="description" content="1:1 Italian lessons with Morgan, a native Italian speaker. Real language, real culture, real progress. All levels welcome." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --green:#009246;--red:#CE2B37;--white:#FFFFFF;
+      --cream:#FAF8F3;--paper:#F4F0E6;--ink:#1A1A1A;
+      --ink60:rgba(26,26,26,.6);--ink20:rgba(26,26,26,.12);--green10:rgba(0,146,70,.1);
+      --nav-h:72px;--r-card:16px;--r-pill:40px;
+      --shadow:0 4px 24px rgba(0,0,0,.08);--shadow-h:0 14px 44px rgba(0,0,0,.15);
+      --tr:.25s cubic-bezier(.4,0,.2,1)
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,h4{font-family:'Playfair Display',serif;line-height:1.2}
+    p{line-height:1.7}a{text-decoration:none;color:inherit}ul{list-style:none}
+
+    .tc{display:flex;height:5px;width:100%}
+    .tc span{flex:1;display:block}
+    .tc span:nth-child(1){background:var(--green)}
+    .tc span:nth-child(2){background:var(--white)}
+    .tc span:nth-child(3){background:var(--red)}
+
+    .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+    .lbl{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:12px;font-family:'DM Sans',sans-serif}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:var(--r-pill);padding:14px 28px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:transform var(--tr),box-shadow var(--tr),background var(--tr),color var(--tr),border-color var(--tr);white-space:nowrap}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .bg{background:var(--green);color:#fff}.bg:hover{background:#007a3a}
+    .bol{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}.bol:hover{background:rgba(255,255,255,.08);border-color:#fff}
+    .bog{background:transparent;color:var(--green);border-color:var(--green)}.bog:hover{background:var(--green10)}
+    .bsm{padding:10px 22px;font-size:.82rem}
+
+    .fu{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+    .fu.vis{opacity:1;transform:translateY(0)}
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}
+
+    #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(22,22,22,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background var(--tr)}
+    #nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between}
+    .nlogo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;color:#fff;font-weight:600}
+    .nr{display:flex;align-items:center;gap:32px}
+    .nl{display:flex;gap:28px}
+    .nl a{color:rgba(255,255,255,.7);font-size:.88rem;font-weight:500;transition:color var(--tr)}
+    .nl a:hover{color:#fff}
+    .hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+    .hbg span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:transform var(--tr),opacity var(--tr)}
+    .hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hbg.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+    .hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+    .mob{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(12,12,12,.98);backdrop-filter:blur(16px);padding:28px 24px 32px;flex-direction:column;gap:4px;z-index:999;border-bottom:1px solid rgba(255,255,255,.07)}
+    .mob.open{display:flex}
+    .mob a{color:rgba(255,255,255,.75);font-size:1.05rem;font-weight:500;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color var(--tr)}
+    .mob a:hover{color:#fff}
+    .mob .btn{align-self:flex-start;margin-top:16px}
+    @media(min-width:901px){.mob{display:none!important}}
+
+    #hero{background:var(--ink);padding-top:calc(var(--nav-h) + 100px);padding-bottom:0;position:relative;overflow:hidden}
+    #hero::before{content:'';position:absolute;top:-120px;right:-200px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(0,146,70,.09) 0%,transparent 70%);pointer-events:none}
+    #hero::after{content:'';position:absolute;bottom:80px;left:-140px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(206,43,55,.06) 0%,transparent 70%);pointer-events:none}
+    .hin{text-align:center;max-width:800px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1}
+    .hey{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,70,.14);border:1px solid rgba(0,146,70,.3);border-radius:var(--r-pill);padding:7px 18px;font-size:.78rem;font-weight:600;color:#5dda9b;letter-spacing:.07em;text-transform:uppercase;margin-bottom:30px}
+    .hh{font-size:clamp(2.8rem,6.5vw,4.4rem);font-style:italic;font-weight:700;color:#fff;line-height:1.1;margin-bottom:26px;letter-spacing:-.015em}
+    .hh em{color:#5dda9b}
+    .hs{font-size:clamp(1rem,2.2vw,1.18rem);color:rgba(255,255,255,.62);max-width:540px;margin:0 auto 44px;font-weight:400;line-height:1.75}
+    .hcta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .sbt{margin-top:80px}
+
+    #proof{background:var(--cream);padding:22px 0;border-bottom:1px solid var(--ink20)}
+    .pin{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 28px;text-align:center}
+    .pit{font-size:.87rem;font-weight:500;color:var(--ink60);letter-spacing:.02em}
+    .pdot{width:4px;height:4px;border-radius:50%;background:var(--ink20);flex-shrink:0}
+
+    #how{background:var(--white);padding:100px 0 0}
+    .sh{text-align:center;margin-bottom:60px}
+    .st{font-size:clamp(2rem,4.5vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:14px}
+    .st em{font-style:italic;color:var(--green)}
+    .ss{font-size:1rem;color:var(--ink60);max-width:480px;margin:0 auto}
+    .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    .sc{background:var(--cream);border-radius:var(--r-card);padding:36px 28px;transition:transform var(--tr),box-shadow var(--tr)}
+    .sc:hover{transform:translateY(-4px);box-shadow:var(--shadow-h)}
+    .sn{width:46px;height:46px;border-radius:50%;background:var(--ink);color:#fff;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .sc h3{font-size:1.18rem;font-weight:700;margin-bottom:10px}
+    .sc p{font-size:.92rem;color:var(--ink60);line-height:1.7}
+
+    #lessons{background:var(--paper);padding:100px 0 0}
+    .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+    .lcard{background:var(--white);border-radius:var(--r-card);padding:36px 28px;border:2px solid transparent;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform var(--tr),box-shadow var(--tr),border-color var(--tr);position:relative}
+    .lcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-h)}
+    .lcard.feat{border-color:var(--green)}
+    .fbadge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:5px 16px;border-radius:var(--r-pill);white-space:nowrap}
+    .lemi{font-size:2.2rem;margin-bottom:14px;display:block}
+    .lcard h3{font-size:1.2rem;font-weight:700;margin-bottom:6px}
+    .llvl{font-size:.77rem;font-weight:600;color:var(--ink60);text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+    .lbuls{flex:1;display:flex;flex-direction:column;gap:11px;margin-bottom:24px}
+    .lbul{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;line-height:1.55}
+    .ck{color:var(--green);font-weight:700;font-size:.95rem;flex-shrink:0;margin-top:1px}
+    .lpri{font-family:'Playfair Display',serif;font-size:1.65rem;font-weight:700;margin-bottom:20px}
+    .lpri span{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:400;color:var(--ink60)}
+    .lcard .btn{width:100%;justify-content:center}
+
+    #guide{background:var(--ink);padding:100px 0 0;position:relative;overflow:hidden}
+    #guide::before{content:'';position:absolute;top:-100px;right:-80px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(0,146,70,.08) 0%,transparent 68%);pointer-events:none}
+    .glayout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+    .gleft h2{font-size:clamp(2rem,3.8vw,2.7rem);color:#fff;font-weight:700;margin-bottom:16px;line-height:1.2}
+    .gleft h2 em{font-style:italic;color:#5dda9b}
+    .gintro{font-size:.95rem;color:rgba(255,255,255,.58);margin-bottom:28px;line-height:1.75}
+    .gbuls{display:flex;flex-direction:column;gap:13px}
+    .gbul{display:flex;align-items:flex-start;gap:12px;font-size:.92rem;color:rgba(255,255,255,.78);line-height:1.55}
+    .gbul .ck{color:#5dda9b}
+    .gright{background:var(--white);border-radius:20px;padding:40px 36px;box-shadow:0 24px 64px rgba(0,0,0,.35)}
+    .gright h3{font-size:1.35rem;font-weight:700;margin-bottom:6px}
+    .gright .fsub{font-size:.88rem;color:var(--ink60);margin-bottom:24px;line-height:1.6}
+
+    .fg{margin-bottom:16px}
+    .fg label{display:block;font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:.02em}
+    .fg input,.fg select,.fg textarea{width:100%;padding:12px 16px;border:1.5px solid var(--ink20);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;color:var(--ink);background:var(--cream);transition:border-color var(--tr),box-shadow var(--tr);outline:none;appearance:none;-webkit-appearance:none}
+    .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(0,146,70,.12)}
+    .fg input.er,.fg select.er,.fg textarea.er{border-color:var(--red);box-shadow:0 0 0 3px rgba(206,43,55,.1)}
+    .fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A1A1A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+    .ferr{display:none;font-size:.78rem;color:var(--red);margin-top:5px;font-weight:500}
+    .ferr.vis{display:block}
+    .fpriv{font-size:.76rem;color:var(--ink60);margin-top:12px;text-align:center;line-height:1.5}
+    .fok{display:none;text-align:center;padding:36px 16px}
+    .fok.vis{display:block}
+    .fok .emo{font-size:2.8rem;margin-bottom:14px}
+    .fok h4{font-size:1.35rem;font-weight:700;margin-bottom:10px}
+    .fok p{font-size:.9rem;color:var(--ink60);line-height:1.65}
+
+    #testimonials{background:var(--cream);padding:100px 0 0}
+    .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .tcard{background:var(--white);border-radius:var(--r-card);padding:32px 28px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:18px;transition:transform var(--tr),box-shadow var(--tr)}
+    .tcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-h)}
+    .stars{display:flex;gap:3px}
+    .star{color:#f5a623;font-size:1rem}
+    .tq{font-size:.96rem;line-height:1.72;color:var(--ink);font-style:italic;font-family:'Playfair Display',serif;flex:1}
+    .tau{display:flex;align-items:center;gap:12px}
+    .tav{width:44px;height:44px;border-radius:50%;background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0}
+    .tai strong{display:block;font-size:.9rem;font-weight:600}
+    .tai span{font-size:.8rem;color:var(--ink60)}
+
+    #faq{background:var(--white);padding:100px 0 0}
+    .flist{max-width:740px;margin:0 auto}
+    .fitem{border-bottom:1px solid var(--ink20)}
+    .fitem:first-child{border-top:1px solid var(--ink20)}
+    .fq{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 4px;background:none;border:none;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;color:var(--ink);transition:color var(--tr)}
+    .fq:hover{color:var(--green)}
+    .fico{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink20);display:flex;align-items:center;justify-content:center;transition:background var(--tr),border-color var(--tr),transform var(--tr);color:var(--ink);font-size:1.1rem;line-height:1;font-weight:400}
+    .fitem.open .fico{background:var(--green);border-color:var(--green);color:#fff;transform:rotate(45deg)}
+    .fans{max-height:0;overflow:hidden;transition:max-height .42s cubic-bezier(.4,0,.2,1)}
+    .fansi{padding:0 4px 24px;font-size:.93rem;color:var(--ink60);line-height:1.72}
+    .fansi strong{color:var(--ink)}
+
+    #ctaf{background:var(--ink);padding:100px 0 0;text-align:center;position:relative;overflow:hidden}
+    #ctaf::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,146,70,.08) 0%,transparent 68%);pointer-events:none}
+    #ctaf h2{font-size:clamp(2.4rem,5.5vw,3.6rem);font-style:italic;color:#fff;margin-bottom:38px;position:relative;line-height:1.15}
+    #ctaf h2 em{color:#5dda9b}
+
+    footer{background:#111;padding:52px 0 0}
+    .fin{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding-bottom:40px}
+    .flog{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:#fff;font-weight:600}
+    .flnks{display:flex;gap:24px;justify-content:center}
+    .flnks a{font-size:.85rem;color:rgba(255,255,255,.45);transition:color var(--tr)}
+    .flnks a:hover{color:rgba(255,255,255,.88)}
+    .fsoc{display:flex;gap:12px;justify-content:flex-end}
+    .slink{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.55);transition:border-color var(--tr),color var(--tr),background var(--tr)}
+    .slink:hover{border-color:var(--green);color:#fff;background:rgba(0,146,70,.18)}
+    .fcp{text-align:center;padding:20px 0;border-top:1px solid rgba(255,255,255,.06);font-size:.8rem;color:rgba(255,255,255,.3)}
+
+    .moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);z-index:2000;align-items:center;justify-content:center;padding:24px}
+    .moverlay.open{display:flex}
+    .mbox{background:var(--white);border-radius:20px;padding:44px 40px;width:100%;max-width:460px;position:relative;box-shadow:0 40px 100px rgba(0,0,0,.3);animation:min .3s cubic-bezier(.22,1,.36,1)}
+    @keyframes min{from{opacity:0;transform:scale(.93) translateY(24px)}to{opacity:1;transform:scale(1) translateY(0)}}
+    .mcls{position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;border:none;background:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink60);font-size:1rem;font-family:inherit;transition:background var(--tr),color var(--tr);line-height:1}
+    .mcls:hover{background:var(--ink20);color:var(--ink)}
+    .mey{font-size:.74rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+    .mbox h3{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+    .mbox h3 em{font-style:italic}
+    .msub{font-size:.88rem;color:var(--ink60);margin-bottom:26px;line-height:1.65}
+    .mbox .fg textarea{min-height:92px;resize:vertical}
+
+    @media(max-width:900px){
+      .nl,.nr>.btn{display:none}
+      .hbg{display:flex}
+      .sgrid,.lgrid,.tgrid{grid-template-columns:1fr}
+      .glayout{grid-template-columns:1fr;gap:44px}
+      .fin{grid-template-columns:1fr;text-align:center;gap:20px}
+      .fsoc{justify-content:center}
+      .flnks{flex-wrap:wrap}
+    }
+    @media(max-width:640px){
+      .hin{padding-bottom:72px}
+      .hcta{flex-direction:column;align-items:center}
+      .mbox{padding:32px 22px}
+      .gright{padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="wrap">
+    <a href="#hero" class="nlogo">Learn Italian with Morgan</a>
+    <div class="nr">
+      <ul class="nl">
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#guide">Free Guide</a></li>
+        <li><a href="#testimonials">About</a></li>
+      </ul>
+      <button class="btn bg bsm" onclick="openApply('General')">Apply to work with Morgan</button>
+    </div>
+    <button class="hbg" id="hbg" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="#lessons" onclick="closeMob()">Lessons</a>
+  <a href="#guide" onclick="closeMob()">Free Guide</a>
+  <a href="#testimonials" onclick="closeMob()">About</a>
+  <button class="btn bg bsm" onclick="closeMob();openApply('General')">Apply to work with Morgan</button>
+</div>
+
+<section id="hero">
+  <div class="hin">
+    <div class="hey fu">🇮🇹 Native Italian Speaker · Online &amp; 1:1 · All Levels</div>
+    <h1 class="hh fu d1">Learn Italian the way<br><em>it’s actually spoken</em></h1>
+    <p class="hs fu d2">1:1 lessons with Morgan — a native Italian speaker.<br>Real language, real culture, real progress.</p>
+    <div class="hcta fu d3">
+      <button class="btn bg" onclick="openApply('General')">Apply to work with Morgan</button>
+      <a href="#guide" class="btn bol">Get the free guide 🎁</a>
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="pin">
+      <span class="pit">Native speaker</span>
+      <div class="pdot"></div>
+      <span class="pit">1:1 personalised lessons</span>
+      <div class="pdot"></div>
+      <span class="pit">All levels welcome</span>
+      <div class="pdot"></div>
+      <span class="pit">🍋 La dolce vita — guaranteed</span>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sh fu">
+      <p class="lbl">How it works</p>
+      <h2 class="st">Three steps to <em>speaking</em> Italian</h2>
+      <p class="ss">No complicated onboarding. Just a clear path to real conversation.</p>
+    </div>
+    <div class="sgrid">
+      <div class="sc fu d1">
+        <div class="sn">1</div>
+        <h3>Apply</h3>
+        <p>Fill in a short form so Morgan can understand your level, goals, and what kind of Italian experience you’re after.</p>
+      </div>
+      <div class="sc fu d2">
+        <div class="sn">2</div>
+        <h3>Get matched to your lesson type</h3>
+        <p>Morgan reviews your application and suggests the lesson format that fits you best — so you’re never stuck in something designed for someone else.</p>
+      </div>
+      <div class="sc fu d3">
+        <div class="sn">3</div>
+        <h3>Start speaking</h3>
+        <p>Your first lesson is hands-on from day one. Real Italian, real conversation, real confidence — from the very beginning. ☕</p>
+      </div>
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="lessons">
+  <div class="wrap">
+    <div class="sh fu">
+      <p class="lbl">Lesson types</p>
+      <h2 class="st">Pick the lesson that’s <em>right for you</em></h2>
+      <p class="ss">Each lesson type is built around a specific kind of learner — not a one-size-fits-all curriculum.</p>
+    </div>
+    <div class="lgrid">
+
+      <div class="lcard fu d1">
+        <span class="lemi">🌱</span>
+        <h3>First Words Italian</h3>
+        <p class="llvl">Complete Beginners</p>
+        <div class="lbuls">
+          <div class="lbul"><span class="ck">✓</span><span>Build a real foundation — pronunciation, rhythm, and everyday phrases</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Understand how Italian actually sounds in the wild</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Cultural context woven into every lesson from day one</span></div>
+        </div>
+        <div class="lpri">€35 <span>/ lesson</span></div>
+        <button class="btn bog" onclick="openApply('First Words Italian')">Apply</button>
+      </div>
+
+      <div class="lcard feat fu d2">
+        <div class="fbadge">Most popular 🍋</div>
+        <span class="lemi">🍋</span>
+        <h3>Real Italian Conversation</h3>
+        <p class="llvl">Intermediate · Those who freeze speaking</p>
+        <div class="lbuls">
+          <div class="lbul"><span class="ck">✓</span><span>Break through the wall of knowing grammar but not speaking</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Conversational Italian as locals use it — slang, rhythm, and nuance</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Build speaking confidence in a low-pressure, 1:1 environment</span></div>
+        </div>
+        <div class="lpri">€40 <span>/ lesson</span></div>
+        <button class="btn bg" onclick="openApply('Real Italian Conversation')">Apply</button>
+      </div>
+
+      <div class="lcard fu d3">
+        <span class="lemi">🏛️</span>
+        <h3>Culture &amp; Language</h3>
+        <p class="llvl">All Levels</p>
+        <div class="lbuls">
+          <div class="lbul"><span class="ck">✓</span><span>Explore Italian through history, food, art, cinema, and region</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Understand the “why” behind the words — language as lived culture</span></div>
+          <div class="lbul"><span class="ck">✓</span><span>Unlike anything you’ll find in a classroom or language app 🤜</span></div>
+        </div>
+        <div class="lpri">€40 <span>/ lesson</span></div>
+        <button class="btn bog" onclick="openApply('Culture & Language')">Apply</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="guide">
+  <div class="wrap">
+    <div class="glayout">
+      <div class="gleft fu">
+        <p class="lbl" style="color:#5dda9b">Free resource</p>
+        <h2>The <em>Essential Italian</em><br>Travel Vocabulary Guide</h2>
+        <p class="gintro">Everything you need to navigate Italy like a local — not like a tourist. This free guide is the fastest way to feel at home in Italy before your very first lesson.</p>
+        <div class="gbuls">
+          <div class="gbul"><span class="ck">✓</span><span>80+ essential phrases for restaurants, markets, and transport</span></div>
+          <div class="gbul"><span class="ck">✓</span><span>How to order coffee the way Italians actually do ☕</span></div>
+          <div class="gbul"><span class="ck">✓</span><span>The phrases that make locals smile — not cringe</span></div>
+          <div class="gbul"><span class="ck">✓</span><span>Regional variations and cultural notes not found in textbooks</span></div>
+          <div class="gbul"><span class="ck">✓</span><span>Morgan’s personal picks for connecting with Italian culture immediately</span></div>
+        </div>
+      </div>
+      <div class="gright fu d2">
+        <div id="gfw">
+          <h3>Get your free copy 🎁</h3>
+          <p class="fsub">Delivered straight to your inbox — no spam, ever.</p>
+          <form id="gform" novalidate>
+            <div class="fg">
+              <label for="gname">Your first name</label>
+              <input type="text" id="gname" name="name" placeholder="e.g. Sarah" autocomplete="given-name" />
+              <span class="ferr" id="gname-e">Please enter your name.</span>
+            </div>
+            <div class="fg">
+              <label for="gemail">Your email address</label>
+              <input type="email" id="gemail" name="email" placeholder="you@example.com" autocomplete="email" />
+              <span class="ferr" id="gemail-e">Please enter a valid email address.</span>
+            </div>
+            <button type="submit" class="btn bg" style="width:100%;justify-content:center;margin-top:6px">Send me the free guide →</button>
+            <p class="fpriv">🔒 No spam. Unsubscribe anytime. Your data stays private.</p>
+          </form>
+        </div>
+        <div class="fok" id="gok">
+          <div class="emo">🎉</div>
+          <h4>Check your inbox!</h4>
+          <p>Your guide is on its way. In the meantime, explore the lesson types above — Morgan can’t wait to meet you.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sh fu">
+      <p class="lbl">Student stories</p>
+      <h2 class="st">Real people. <em>Real progress.</em></h2>
+      <p class="ss">From first words to full conversations — here’s what students say about learning with Morgan.</p>
+    </div>
+    <div class="tgrid">
+      <div class="tcard fu d1">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="tq">“After 3 lessons I was already having small conversations. I never thought that was possible — I had been ‘learning’ Italian for years with nothing to show for it.”</p>
+        <div class="tau"><div class="tav">🇺🇸</div><div class="tai"><strong>Sarah M.</strong><span>New York, USA · First Words Italian</span></div></div>
+      </div>
+      <div class="tcard fu d2">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="tq">“Morgan’s approach completely changed how I think about speaking Italian. The culture lessons are unlike anything else — I finally understand the language, not just the words.”</p>
+        <div class="tau"><div class="tav">🇬🇧</div><div class="tai"><strong>James T.</strong><span>London, UK · Culture &amp; Language</span></div></div>
+      </div>
+      <div class="tcard fu d3">
+        <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="tq">“I reconnected with my Italian roots through Morgan’s lessons. It’s been incredibly emotional — and the most rewarding thing I’ve done in years.”</p>
+        <div class="tau"><div class="tav">🇦🇺</div><div class="tai"><strong>Giulia F.</strong><span>Melbourne, Australia · Real Italian Conversation</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sh fu">
+      <p class="lbl">Questions</p>
+      <h2 class="st">Everything you <em>need to know</em></h2>
+    </div>
+    <div class="flist fu d1">
+      <div class="fitem">
+        <button class="fq" aria-expanded="false">Do I need any Italian to start? <span class="fico" aria-hidden="true">+</span></button>
+        <div class="fans"><div class="fansi">Absolutely not. The First Words Italian lesson is designed for complete beginners — no prior knowledge needed. Morgan starts from scratch and builds your confidence in real spoken Italian from day one. All you need is curiosity and a love of Italy.</div></div>
+      </div>
+      <div class="fitem">
+        <button class="fq" aria-expanded="false">How do lessons work? <span class="fico" aria-hidden="true">+</span></button>
+        <div class="fans"><div class="fansi">Lessons are 1:1 video calls via Zoom or Google Meet — 50 minutes, fully personalised to your goals and interests. Morgan prepares materials specific to you. There are no rigid textbooks, just real conversation-focused learning shaped around who you are and where you want to go.</div></div>
+      </div>
+      <div class="fitem">
+        <button class="fq" aria-expanded="false">What is the difference between the lesson types? <span class="fico" aria-hidden="true">+</span></button>
+        <div class="fans"><div class="fansi"><strong>First Words Italian</strong> is for complete beginners. <strong>Real Italian Conversation</strong> is for intermediate learners who know grammar but freeze speaking. <strong>Culture &amp; Language</strong> is for any level wanting to understand Italian through history, food, art, and people. Morgan will help you choose when you apply.</div></div>
+      </div>
+      <div class="fitem">
+        <button class="fq" aria-expanded="false">Can I try a lesson before committing? <span class="fico" aria-hidden="true">+</span></button>
+        <div class="fans"><div class="fansi">Yes — your first lesson is a single session with no ongoing commitment required. Morgan wants the match to feel right for both of you. Apply, enjoy your first lesson, and if it clicks, continue from there. No pressure, no lock-in.</div></div>
+      </div>
+      <div class="fitem">
+        <button class="fq" aria-expanded="false">What is inside the free guide? <span class="fico" aria-hidden="true">+</span></button>
+        <div class="fans"><div class="fansi">The Essential Italian Travel Vocabulary Guide includes 80+ phrases for real situations — restaurants, markets, transport, and more. It also has Morgan’s cultural notes on how Italians actually communicate, common tourist mistakes to avoid, and the phrases that make locals genuinely warm to you.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sbt"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<section id="ctaf">
+  <div class="wrap" style="position:relative;z-index:1">
+    <h2 class="fu">Pronto/a? <em>Let’s speak Italian.</em></h2>
+    <button class="btn bg fu d1" onclick="openApply('General')" style="font-size:1rem;padding:16px 38px">Apply to work with Morgan</button>
+  </div>
+  <div class="sbt" style="margin-top:80px"><div class="tc"><span></span><span></span><span></span></div></div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fin">
+      <div class="flog">Learn Italian with Morgan</div>
+      <ul class="flnks">
+        <li><a href="#lessons">Lessons</a></li>
+        <li><a href="#guide">Free Guide</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#testimonials">Stories</a></li>
+      </ul>
+      <div class="fsoc">
+        <a href="https://www.instagram.com/learnitalianwithmorgan" target="_blank" rel="noopener noreferrer" class="slink" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@learnitalianwithmorgan" target="_blank" rel="noopener noreferrer" class="slink" aria-label="TikTok">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@learnitalianwithmorgan" target="_blank" rel="noopener noreferrer" class="slink" aria-label="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fcp">© 2026 Learn Italian with Morgan · Made with 🍋 and amore</div>
+  </div>
+  <div class="tc"><span></span><span></span><span></span></div>
+</footer>
+
+<div class="moverlay" id="moverlay" role="dialog" aria-modal="true" aria-labelledby="mtitle" aria-describedby="mdesc">
+  <div class="mbox">
+    <button class="mcls" id="mcls" aria-label="Close">&times;</button>
+    <p class="mey">Apply to work with Morgan</p>
+    <h3 id="mtitle">Let’s find your <em>perfect lesson</em></h3>
+    <p class="msub" id="mdesc">Fill in a few details and Morgan will be in touch within 48 hours to match you to the right lesson type.</p>
+    <div id="aform-wrap">
+      <form id="aform" novalidate>
+        <div class="fg">
+          <label for="aname">Your name</label>
+          <input type="text" id="aname" name="name" placeholder="First name" autocomplete="given-name" />
+          <span class="ferr" id="aname-e">Please enter your name.</span>
+        </div>
+        <div class="fg">
+          <label for="aemail">Email address</label>
+          <input type="email" id="aemail" name="email" placeholder="you@example.com" autocomplete="email" />
+          <span class="ferr" id="aemail-e">Please enter a valid email address.</span>
+        </div>
+        <div class="fg">
+          <label for="alevel">Your Italian level</label>
+          <select id="alevel" name="level">
+            <option value="" disabled selected>Select your level…</option>
+            <option value="beginner">Beginner — starting from scratch</option>
+            <option value="elementary">Elementary — I know a few basics</option>
+            <option value="intermediate">Intermediate — I understand but freeze speaking</option>
+            <option value="advanced">Advanced — I want to refine and go deeper</option>
+          </select>
+          <span class="ferr" id="alevel-e">Please select your level.</span>
+        </div>
+        <div class="fg">
+          <label for="amsg">Tell Morgan a bit about you and your goals</label>
+          <textarea id="amsg" name="message" placeholder="What brought you to Italian? What do you want to achieve?"></textarea>
+        </div>
+        <button type="submit" class="btn bg" style="width:100%;justify-content:center;margin-top:4px">Apply now →</button>
+        <p class="fpriv">🔒 Your information stays private. Morgan will reply within 48 hours.</p>
+      </form>
+    </div>
+    <div class="fok" id="aok">
+      <div class="emo">🤜</div>
+      <h4>Application received!</h4>
+      <p>Grazie mille! Morgan will review your application and be in touch within 48 hours. In the meantime, grab the free guide below.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('#hero .fu').forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('vis'),80+i*130);
+    });
+  });
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
+  },{threshold:.1,rootMargin:'0px 0px -48px 0px'});
+  document.querySelectorAll('.fu:not(#hero .fu)').forEach(el=>obs.observe(el));
+
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{
+    nav.style.background=window.scrollY>10?'rgba(10,10,10,.98)':'rgba(22,22,22,.96)';
+  },{passive:true});
+
+  const hbg=document.getElementById('hbg'),mob=document.getElementById('mob');
+  hbg.addEventListener('click',()=>{
+    const o=mob.classList.toggle('open');
+    hbg.classList.toggle('open',o);
+    hbg.setAttribute('aria-expanded',String(o));
+    hbg.setAttribute('aria-label',o?'Close menu':'Open menu');
+    document.body.style.overflow=o?'hidden':'';
+  });
+  function closeMob(){mob.classList.remove('open');hbg.classList.remove('open');hbg.setAttribute('aria-expanded','false');hbg.setAttribute('aria-label','Open menu');document.body.style.overflow='';}
+
+  const moverlay=document.getElementById('moverlay'),mcls=document.getElementById('mcls');
+  function openApply(t){
+    document.getElementById('aform-wrap').style.display='';
+    document.getElementById('aok').classList.remove('vis');
+    document.getElementById('aform').reset();
+    clearErrs(document.getElementById('aform'));
+    const m={'First Words Italian':'beginner','Real Italian Conversation':'intermediate'};
+    if(m[t])document.getElementById('alevel').value=m[t];
+    moverlay.classList.add('open');document.body.style.overflow='hidden';
+    setTimeout(()=>document.getElementById('aname').focus(),120);
+  }
+  function closeApply(){moverlay.classList.remove('open');document.body.style.overflow='';}
+  mcls.addEventListener('click',closeApply);
+  moverlay.addEventListener('click',e=>{if(e.target===moverlay)closeApply();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&moverlay.classList.contains('open'))closeApply();});
+
+  function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());}
+  function showE(el,errEl){el.classList.add('er');errEl.classList.add('vis');}
+  function clearE(el,errEl){el.classList.remove('er');errEl.classList.remove('vis');}
+  function clearErrs(form){form.querySelectorAll('input,select,textarea').forEach(el=>el.classList.remove('er'));form.querySelectorAll('.ferr').forEach(el=>el.classList.remove('vis'));}
+
+  [['aname','aname-e'],['aemail','aemail-e'],['alevel','alevel-e'],['gname','gname-e'],['gemail','gemail-e']].forEach(([id,eid])=>{
+    const el=document.getElementById(id);if(!el)return;
+    ['input','change'].forEach(ev=>el.addEventListener(ev,()=>clearE(el,document.getElementById(eid))));
+  });
+
+  document.getElementById('aform').addEventListener('submit',e=>{
+    e.preventDefault();let ok=true;
+    const n=document.getElementById('aname'),em=document.getElementById('aemail'),lv=document.getElementById('alevel');
+    if(!n.value.trim()){showE(n,document.getElementById('aname-e'));ok=false;}else clearE(n,document.getElementById('aname-e'));
+    if(!validEmail(em.value)){showE(em,document.getElementById('aemail-e'));ok=false;}else clearE(em,document.getElementById('aemail-e'));
+    if(!lv.value){showE(lv,document.getElementById('alevel-e'));ok=false;}else clearE(lv,document.getElementById('alevel-e'));
+    if(!ok)return;
+    document.getElementById('aform-wrap').style.display='none';
+    document.getElementById('aok').classList.add('vis');
+  });
+
+  document.getElementById('gform').addEventListener('submit',e=>{
+    e.preventDefault();let ok=true;
+    const n=document.getElementById('gname'),em=document.getElementById('gemail');
+    if(!n.value.trim()){showE(n,document.getElementById('gname-e'));ok=false;}else clearE(n,document.getElementById('gname-e'));
+    if(!validEmail(em.value)){showE(em,document.getElementById('gemail-e'));ok=false;}else clearE(em,document.getElementById('gemail-e'));
+    if(!ok)return;
+    document.getElementById('gfw').style.display='none';
+    document.getElementById('gok').classList.add('vis');
+  });
+
+  document.querySelectorAll('.fq').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const item=btn.closest('.fitem'),ans=item.querySelector('.fans'),open=item.classList.contains('open');
+      document.querySelectorAll('.fitem').forEach(i=>{i.classList.remove('open');i.querySelector('.fans').style.maxHeight=null;i.querySelector('.fq').setAttribute('aria-expanded','false');});
+      if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';btn.setAttribute('aria-expanded','true');}
+    });
+  });
+<\/script>
+</body>
+</html>
