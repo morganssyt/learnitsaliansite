@@ -43,7 +43,7 @@
     .fu.vis{opacity:1;transform:translateY(0)}
     .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}
 
-    #nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(22,22,22,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background var(--tr)}
+    #nav{position:fixed;top:5px;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(22,22,22,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);transition:background var(--tr)}
     #nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between}
     .nlogo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;color:#fff;font-weight:600}
     .nr{display:flex;align-items:center;gap:32px}
@@ -55,22 +55,23 @@
     .hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
     .hbg.open span:nth-child(2){opacity:0;transform:scaleX(0)}
     .hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-    .mob{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(12,12,12,.98);backdrop-filter:blur(16px);padding:28px 24px 32px;flex-direction:column;gap:4px;z-index:999;border-bottom:1px solid rgba(255,255,255,.07)}
+    .mob{display:none;position:fixed;top:calc(var(--nav-h) + 5px);left:0;right:0;background:rgba(12,12,12,.98);backdrop-filter:blur(16px);padding:28px 24px 32px;flex-direction:column;gap:4px;z-index:999;border-bottom:1px solid rgba(255,255,255,.07)}
     .mob.open{display:flex}
     .mob a{color:rgba(255,255,255,.75);font-size:1.05rem;font-weight:500;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);transition:color var(--tr)}
     .mob a:hover{color:#fff}
     .mob .btn{align-self:flex-start;margin-top:16px}
     @media(min-width:901px){.mob{display:none!important}}
 
-    #hero{background:var(--ink);padding-top:calc(var(--nav-h) + 100px);padding-bottom:0;position:relative;overflow:hidden}
+    #hero{background:var(--ink);padding-top:calc(var(--nav-h) + 5px + 100px);padding-bottom:0;position:relative;overflow:hidden}
     #hero::before{content:'';position:absolute;top:-120px;right:-200px;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,rgba(0,146,70,.09) 0%,transparent 70%);pointer-events:none}
     #hero::after{content:'';position:absolute;bottom:80px;left:-140px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(206,43,55,.06) 0%,transparent 70%);pointer-events:none}
     .hin{text-align:center;max-width:800px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1}
-    .hey{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,70,.14);border:1px solid rgba(0,146,70,.3);border-radius:var(--r-pill);padding:7px 18px;font-size:.78rem;font-weight:600;color:#5dda9b;letter-spacing:.07em;text-transform:uppercase;margin-bottom:30px}
-    .hh{font-size:clamp(2.8rem,6.5vw,4.4rem);font-style:italic;font-weight:700;color:#fff;line-height:1.1;margin-bottom:26px;letter-spacing:-.015em}
+    @keyframes hfup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .hey{display:inline-flex;align-items:center;gap:8px;background:rgba(0,146,70,.14);border:1px solid rgba(0,146,70,.3);border-radius:var(--r-pill);padding:7px 18px;font-size:.78rem;font-weight:600;color:#5dda9b;letter-spacing:.07em;text-transform:uppercase;margin-bottom:30px;animation:hfup .8s cubic-bezier(.22,1,.36,1) .1s both}
+    .hh{font-size:clamp(2.8rem,6.5vw,4.4rem);font-style:italic;font-weight:700;color:#ffffff;line-height:1.1;margin-bottom:26px;letter-spacing:-.015em;animation:hfup .8s cubic-bezier(.22,1,.36,1) .25s both}
     .hh em{color:#5dda9b}
-    .hs{font-size:clamp(1rem,2.2vw,1.18rem);color:rgba(255,255,255,.62);max-width:540px;margin:0 auto 44px;font-weight:400;line-height:1.75}
-    .hcta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .hs{font-size:clamp(1rem,2.2vw,1.18rem);color:#AAAAAA;max-width:540px;margin:0 auto 44px;font-weight:400;line-height:1.75;animation:hfup .8s cubic-bezier(.22,1,.36,1) .4s both}
+    .hcta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:hfup .8s cubic-bezier(.22,1,.36,1) .55s both}
     .sbt{margin-top:80px}
 
     #proof{background:var(--cream);padding:22px 0;border-bottom:1px solid var(--ink20)}
@@ -205,6 +206,8 @@
 </head>
 <body>
 
+<div style="position:fixed;top:0;left:0;right:0;z-index:1001;display:flex;height:5px"><span style="flex:1;background:#009246"></span><span style="flex:1;background:rgba(255,255,255,0.25)"></span><span style="flex:1;background:#CE2B37"></span></div>
+
 <nav id="nav" role="navigation" aria-label="Main navigation">
   <div class="wrap">
     <a href="#hero" class="nlogo">Learn Italian with Morgan</a>
@@ -213,6 +216,7 @@
         <li><a href="#lessons">Lessons</a></li>
         <li><a href="#guide">Free Guide</a></li>
         <li><a href="#testimonials">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
       <button class="btn bg bsm" onclick="openApply('General')">Apply to work with Morgan</button>
     </div>
@@ -225,15 +229,16 @@
   <a href="#lessons" onclick="closeMob()">Lessons</a>
   <a href="#guide" onclick="closeMob()">Free Guide</a>
   <a href="#testimonials" onclick="closeMob()">About</a>
+  <a href="#faq" onclick="closeMob()">FAQ</a>
   <button class="btn bg bsm" onclick="closeMob();openApply('General')">Apply to work with Morgan</button>
 </div>
 
 <section id="hero">
   <div class="hin">
-    <div class="hey fu">🇮🇹 Native Italian Speaker · Online &amp; 1:1 · All Levels</div>
-    <h1 class="hh fu d1">Learn Italian the way<br><em>it’s actually spoken</em></h1>
-    <p class="hs fu d2">1:1 lessons with Morgan — a native Italian speaker.<br>Real language, real culture, real progress.</p>
-    <div class="hcta fu d3">
+    <div class="hey">🇮🇹 Native Italian Speaker · Online &amp; 1:1 · All Levels</div>
+    <h1 class="hh">Learn Italian the way<br><em>it’s actually spoken</em></h1>
+    <p class="hs">1:1 lessons with Morgan — a native Italian speaker.<br>Real language, real culture, real progress.</p>
+    <div class="hcta">
       <button class="btn bg" onclick="openApply('General')">Apply to work with Morgan</button>
       <a href="#guide" class="btn bol">Get the free guide 🎁</a>
     </div>
@@ -359,12 +364,12 @@
           <form id="gform" novalidate>
             <div class="fg">
               <label for="gname">Your first name</label>
-              <input type="text" id="gname" name="name" placeholder="e.g. Sarah" autocomplete="given-name" />
+              <input type="text" id="gname" name="name" placeholder="Il tuo nome / Your name" autocomplete="given-name" />
               <span class="ferr" id="gname-e">Please enter your name.</span>
             </div>
             <div class="fg">
               <label for="gemail">Your email address</label>
-              <input type="email" id="gemail" name="email" placeholder="you@example.com" autocomplete="email" />
+              <input type="email" id="gemail" name="email" placeholder="la tua email / your@email.com" autocomplete="email" />
               <span class="ferr" id="gemail-e">Please enter a valid email address.</span>
             </div>
             <button type="submit" class="btn bg" style="width:100%;justify-content:center;margin-top:6px">Send me the free guide →</button>
@@ -374,7 +379,7 @@
         <div class="fok" id="gok">
           <div class="emo">🎉</div>
           <h4>Check your inbox!</h4>
-          <p>Your guide is on its way. In the meantime, explore the lesson types above — Morgan can’t wait to meet you.</p>
+          <p>Your free Italian Travel Guide is on its way. Benvenuto/a nella famiglia 🇮🇹🍋</p>
         </div>
       </div>
     </div>
@@ -602,6 +607,6 @@
       if(!open){item.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px';btn.setAttribute('aria-expanded','true');}
     });
   });
-<\/script>
+</script>
 </body>
 </html>
